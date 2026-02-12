@@ -1,0 +1,38 @@
+Mk = 91774 #Kroutící moment na výstupu spojky [kpmm]
+#Parametry drážkování
+Da1=44.3 #Průměr hlavové kružnice hřídele [mm] Do
+Da2=39 #Průměr hlavové kružnice náboje [mm] Di
+Df1=37.8 #Průměr patní kružnice hřídele [mm] Dre
+Df2=45 #Průměr patní kružnice náboje [mm] Dri
+D=42 #Průměr drážkování[mm]
+m=3 #Modul
+b2=25 #Šířka drážkování [mm]
+fi=0.5
+z=14 #Počet zubů
+p_D=10
+
+a=0.1*m+0.05 #Radiální složka sražení hran hlavy zubu
+ha1=0.5*(Da1-D) #Výška hlavy zubu hřídele [mm]
+ha2=0.5*(D-Da2) #Výška paty zubu náboje [mm]
+
+h1=0.5*(Da1-Df1) #Výška zubu hřídele [mm]
+hn=ha1+ha2-a #Nosná výška drážkování [mm]
+ssf=2.17*m #Tloušťka paty zubu hřídele na tětivě [mm]
+
+#Výpočet unosnosti drážkování
+#Namáhání ohybem
+
+sigma = (12 * Mk * h1) / (fi * m * b2 * (z**2) *(ssf**2))
+tau = (3 * Mk) / (fi * m * b2 * ssf * (z**2))
+
+
+#Namáhání tlakem
+
+p = ((2 * Mk) / (fi * m * b2 * hn * z**2))
+k=p_D/p #Koeficient únosnosti drážkování
+
+
+print("Namáhání ohybem (sigma):", sigma, "kp/mm^2")
+print("Namáhání smykem (tau):", tau, "kp/mm^2")
+print("Namáhání tlakem (p):", p, "kp/mm^2")
+print("Koeficient únosnosti drážkování (k):", k)
